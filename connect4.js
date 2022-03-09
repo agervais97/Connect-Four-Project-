@@ -61,7 +61,11 @@
  
  function findSpotForCol(x) {
    // TODO: write the real version of this, rather than always returning 0
-   return 0;
+   for(let y = 0; y < HEIGHT; y++){
+       if (board[y][x] === null)
+       return y;
+   }
+   return null;
  }
  
  /** placeInTable: update DOM to place piece into HTML table of board */
@@ -72,7 +76,7 @@
    gamePiece.classList.add("piece")
     if(currPlayer === 1){
         gamePiece.classList.add("p1");
-        document.getElementById(`${y}-${x}`).append(gamePiece);
+        document.getElementById(`${y}-${x}`).append(gamePiece); 
     } else {
         gamePiece.classList.add("p2");
         document.getElementById(`${y}-${x}`).append(gamePiece);
@@ -83,6 +87,7 @@
  
  function endGame(msg) {
    // TODO: pop up alert message
+   alert(msg)
  }
  
  /** handleClick: handle click of column top to play piece */
@@ -99,6 +104,7 @@
  
    // place piece in board and add to HTML table
    // TODO: add line to update in-memory board
+   board[x][y] = currPlayer;
    placeInTable(y, x);
 
  
@@ -113,7 +119,6 @@
        return endGame(`It's a TIE!`)
    }
   
- 
    // switch players
    // TODO: switch currPlayer 1 <-> 2
   currPlayer = currPlayer === 1 ? 2 : 1; 
