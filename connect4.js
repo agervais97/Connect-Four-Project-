@@ -73,7 +73,7 @@
     if(currPlayer === 1){
         gamePiece.classList.add("p1");
         document.getElementById(`${y}-${x}`).append(gamePiece)
-    } else{
+    } else {
         gamePiece.classList.add("p2");
         document.getElementById(`${y}-${x}`).append(gamePiece)
     }
@@ -108,9 +108,14 @@
  
    // check for tie
    // TODO: check if all cells in board are filled; if so call, call endGame
+   if (board.every(val => val !== null)) {
+       return endGame(`It's a TIE!`)
+   }
+  
  
    // switch players
    // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer == 1 ? 2 : 1; 
  }
  
  /** checkForWin: check board cell-by-cell for "does a win start here?" */
