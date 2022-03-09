@@ -5,41 +5,50 @@
  * board fills (tie)
  */
 
- var WIDTH = 7;
- var HEIGHT = 6;
+ const WIDTH = 7;
+ const HEIGHT = 6;
  
- var currPlayer = 1; // active player: 1 or 2
- var board = []; // array of rows, each row is array of cells  (board[y][x])
+ let currPlayer = 1; // active player: 1 or 2
+ const board = []; // array of rows, each row is array of cells  (board[y][x])
  
  /** makeBoard: create in-JS board structure:
   *    board = array of rows, each row is array of cells  (board[y][x])
   */
  
- function makeBoard() {
+ function makeBoard(WIDTH,HEIGHT) {
    // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+   for(let i= 0; i < WIDTH; i++){
+    board.push(new Array(HEIGHT).fill(null));
+   }
+   return board;
  }
  
  /** makeHtmlBoard: make HTML table and row of column tops. */
  
  function makeHtmlBoard() {
    // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+   const htmlBoard = document.getElementById("board")
  
    // TODO: add comment for this code
-   var top = document.createElement("tr");
+   // this code creates the top row on the board
+   // on-click event used to determine where the player's piece will go 
+   const top = document.createElement("tr");
    top.setAttribute("id", "column-top");
    top.addEventListener("click", handleClick);
  
-   for (var x = 0; x < WIDTH; x++) {
-     var headCell = document.createElement("td");
+   for (let x = 0; x < WIDTH; x++) {
+     const headCell = document.createElement("td");
      headCell.setAttribute("id", x);
      top.append(headCell);
    }
    htmlBoard.append(top);
  
    // TODO: add comment for this code
-   for (var y = 0; y < HEIGHT; y++) {
+   // first for loop creates eacch row in the board
+   // second loop creates the coloumn, also creates attribut to be used later for piece location
+   for (let y = 0; y < HEIGHT; y++) {
      const row = document.createElement("tr");
-     for (var x = 0; x < WIDTH; x++) {
+     for (let x = 0; x < WIDTH; x++) {
        const cell = document.createElement("td");
        cell.setAttribute("id", `${y}-${x}`);
        row.append(cell);
@@ -59,6 +68,15 @@
  
  function placeInTable(y, x) {
    // TODO: make a div and insert into correct table cell
+   const gamePiece = document.createElement("div")
+   gamePiece.classList.add("piece")
+    if(currPlayer === 1){
+        gamePiece.classList.add("p1");
+        document.getElementById(`${y}-${x}`).append(gamePiece)
+    } else{
+        gamePiece.classList.add("p2");
+        document.getElementById(`${y}-${x}`).append(gamePiece)
+    }
  }
  
  /** endGame: announce game end */
@@ -71,10 +89,10 @@
  
  function handleClick(evt) {
    // get x from ID of clicked cell
-   var x = +evt.target.id;
+   let x = +evt.target.id;
  
    // get next spot in column (if none, ignore click)
-   var y = findSpotForCol(x);
+   let y = findSpotForCol(x);
    if (y === null) {
      return;
    }
