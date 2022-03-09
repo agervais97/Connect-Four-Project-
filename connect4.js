@@ -9,7 +9,7 @@
  const HEIGHT = 6;
  
  let currPlayer = 1; // active player: 1 or 2
- const board = []; // array of rows, each row is array of cells  (board[y][x])
+ let board = []; // array of rows, each row is array of cells  (board[y][x])
  
  /** makeBoard: create in-JS board structure:
   *    board = array of rows, each row is array of cells  (board[y][x])
@@ -72,10 +72,10 @@
    gamePiece.classList.add("piece")
     if(currPlayer === 1){
         gamePiece.classList.add("p1");
-        document.getElementById(`${y}-${x}`).append(gamePiece)
+        document.getElementById(`${y}-${x}`).append(gamePiece);
     } else {
         gamePiece.classList.add("p2");
-        document.getElementById(`${y}-${x}`).append(gamePiece)
+        document.getElementById(`${y}-${x}`).append(gamePiece);
     }
  }
  
@@ -100,6 +100,7 @@
    // place piece in board and add to HTML table
    // TODO: add line to update in-memory board
    placeInTable(y, x);
+
  
    // check for win
    if (checkForWin()) {
@@ -115,7 +116,7 @@
  
    // switch players
    // TODO: switch currPlayer 1 <-> 2
-  currPlayer = currPlayer == 1 ? 2 : 1; 
+  currPlayer = currPlayer === 1 ? 2 : 1; 
  }
  
  /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -138,12 +139,12 @@
  
    // TODO: read and understand this code. Add comments to help you.
  
-   for (var y = 0; y < HEIGHT; y++) {
-     for (var x = 0; x < WIDTH; x++) {
-       var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-       var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-       var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-       var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+   for (let y = 0; y < HEIGHT; y++) {
+     for (let x = 0; x < WIDTH; x++) {
+       const horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+       const vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+       const diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+       const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
  
        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
          return true;
