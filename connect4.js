@@ -15,9 +15,9 @@
   *    board = array of rows, each row is array of cells  (board[y][x])
   */
  
- function makeBoard(WIDTH,HEIGHT) {
+ function makeBoard() {
    // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-   for(let i= 0; i < WIDTH; i++){
+   for(let x= 0; x < WIDTH; x++){
     board.push(new Array(HEIGHT).fill(null));
    }
    return board;
@@ -45,7 +45,7 @@
  
    // TODO: add comment for this code
    // first for loop creates eacch row in the board
-   // second loop creates the coloumn, also creates attribut to be used later for piece location
+   // second loop creates the coloumn, also creates attribute to be used later for piece location
    for (let y = 0; y < HEIGHT; y++) {
      const row = document.createElement("tr");
      for (let x = 0; x < WIDTH; x++) {
@@ -61,9 +61,10 @@
  
  function findSpotForCol(x) {
    // TODO: write the real version of this, rather than always returning 0
-   for(let y = 0; y < HEIGHT; y++){
-       if (board[y][x] === null)
-       return y;
+   for(let y = HEIGHT-1; y >= 0; y--){
+       if(!board[y][x]) {
+           return y;
+       }
    }
    return null;
  }
@@ -87,7 +88,7 @@
  
  function endGame(msg) {
    // TODO: pop up alert message
-   alert(msg)
+   alert(msg);
  }
  
  /** handleClick: handle click of column top to play piece */
@@ -104,7 +105,7 @@
  
    // place piece in board and add to HTML table
    // TODO: add line to update in-memory board
-   board[x][y] = currPlayer;
+   board[y][x] = currPlayer;
    placeInTable(y, x);
 
  
@@ -115,7 +116,7 @@
  
    // check for tie
    // TODO: check if all cells in board are filled; if so call, call endGame
-   if (board.every(val => val !== null)) {
+   if (board.every(val => val.every(cell => cell))) {
        return endGame(`It's a TIE!`)
    }
   
