@@ -72,13 +72,15 @@
  function placeInTable(y, x) {
    const gamePiece = document.createElement("div")
    gamePiece.classList.add("piece")
-    if(currPlayer === 1){
-        gamePiece.classList.add("p1");
-        document.getElementById(`${y}-${x}`).append(gamePiece); 
-    } else {
-        gamePiece.classList.add("p2");
-        document.getElementById(`${y}-${x}`).append(gamePiece);
-    }
+   gamePiece.classList.add(`p${currPlayer}`);
+   document.getElementById(`${y}-${x}`).append(gamePiece);
+    // if(currPlayer === 1){
+    //     gamePiece.classList.add("p1");
+    //     document.getElementById(`${y}-${x}`).append(gamePiece); 
+    // } else {
+    //     gamePiece.classList.add("p2");
+    //     document.getElementById(`${y}-${x}`).append(gamePiece);
+    // }
  }
  
  /** endGame: announce game end */
@@ -110,7 +112,7 @@
    }
  
    // check for tie
-   if (board.every(val => val.every(cell => cell))) {
+   if (board[0].every(cell => cell)) {
        return endGame(`It's a TIE!`)
    }
   
